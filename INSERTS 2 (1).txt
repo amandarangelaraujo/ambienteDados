@@ -1,0 +1,219 @@
+﻿INSERT INTO `mydb`.`vendedor` (`idvendedor`, `nome`, `metaVendas`) VALUES
+(1, 'Carlos Silva', 100),
+(2, 'Ana Oliveira', 200),
+(3, 'Pedro Sousa', 150),
+(4, 'Luciana Costa', 120),
+(5, 'Mariana Lima', 180),
+(6, 'Roberto Alves', 140),
+(7, 'Fernanda Duarte', 160),
+(8, 'José Pereira', 130),
+(9, 'Carla Mendes', 110),
+(10, 'Bruno Martins', 170);
+
+
+-- ------
+
+
+INSERT INTO `mydb`.`cliente` (`idcliente`, `nome`, `telefone`, `email`, `produtosPreferidos`, `satisfacao`) VALUES
+(1, 'João Santos', '123456789', 'joao@gmail.com', 'Eletrônicos', 5),
+(2, 'Maria Fernanda', '987654321', 'maria@gmail.com', 'Moda', 4),
+(3, 'Ricardo Alves', '111222333', 'ricardo@gmail.com', 'Livros', 3),
+(4, 'Patrícia Souza', '444555666', 'patricia@gmail.com', 'Eletrônicos', 4),
+(5, 'Gabriela Costa', '777888999', 'gabriela@gmail.com', 'Moda', 5),
+(6, 'Fernando Lima', '101112131', 'fernando@gmail.com', 'Esportes', 2),
+(7, 'Larissa Alves', '141516171', 'larissa@gmail.com', 'Eletrônicos', 3),
+(8, 'Daniel Pereira', '181920212', 'daniel@gmail.com', 'Livros', 4),
+(9, 'Juliana Dias', '232425262', 'juliana@gmail.com', 'Moda', 5),
+(10, 'Marcelo Duarte', '272829303', 'marcelo@gmail.com', 'Esportes', 3);
+
+
+-- -------
+INSERT INTO `mydb`.`venda` (`idvenda`, `dataVenda`, `quantidadeVendida`, `precoUnitario`, `vendedor_idvendedor`, `cliente_idcliente`) VALUES
+(1, '2024-05-10 12:00:00', 10, 100.0, 1, 1),
+(2, '2024-05-11 13:00:00', 20, 150.0, 2, 2),
+(3, '2024-05-12 14:00:00', 15, 200.0, 3, 3),
+(4, '2024-05-13 15:00:00', 25, 250.0, 4, 4),
+(5, '2024-05-14 16:00:00', 30, 300.0, 5, 5),
+(6, '2024-05-15 17:00:00', 35, 350.0, 6, 6),
+(7, '2024-05-16 18:00:00', 40, 400.0, 7, 7),
+(8, '2024-05-17 19:00:00', 45, 450.0, 8, 8),
+(9, '2024-05-18 20:00:00', 50, 500.0, 9, 9),
+(10, '2024-05-19 21:00:00', 55, 550.0, 10, 10);
+
+
+
+
+
+
+-- ------
+INSERT INTO `mydb`.`compra` (`idcompra`, `dataCompra`, `tipoPagamento`, `dataPrevisaoEntrega`) VALUES
+(1, '2024-05-01 10:00:00', 'Cartão', '2024-05-05 10:00:00'),
+(2, '2024-05-02 11:00:00', 'Boleto', '2024-05-06 11:00:00'),
+(3, '2024-05-03 12:00:00', 'Cartão', '2024-05-07 12:00:00'),
+(4, '2024-05-04 13:00:00', 'Cartão', '2024-05-08 13:00:00'),
+(5, '2024-05-05 14:00:00', 'Boleto', '2024-05-09 14:00:00'),
+(6, '2024-05-06 15:00:00', 'Cartão', '2024-05-10 15:00:00'),
+(7, '2024-05-07 16:00:00', 'Cartão', '2024-05-11 16:00:00'),
+(8, '2024-05-08 17:00:00', 'Boleto', '2024-05-12 17:00:00'),
+(9, '2024-05-09 18:00:00', 'Cartão', '2024-05-13 18:00:00'),
+(10, '2024-05-10 19:00:00', 'Cartão', '2024-05-14 19:00:00');
+
+
+-- ----
+
+
+INSERT INTO `mydb`.`endereco` (`idendereco`, `logradouro`, `pais`, `numero`, `estadol`, `cep`, `cliente_idcliente`) VALUES
+(1, 'Rua das Flores', 'Brasil', '123', 'SP', '12345678', 1),
+(2, 'Avenida Paulista', 'Brasil', '456', 'SP', '87654321', 2),
+(3, 'Rua XV de Novembro', 'Brasil', '789', 'PR', '12348765', 3),
+(4, 'Rua da Bahia', 'Brasil', '101', 'MG', '87651234', 4),
+(5, 'Avenida Atlântica', 'Brasil', '112', 'RJ', '12346578', 5),
+(6, 'Rua Augusta', 'Brasil', '131', 'SP', '87652134', 6),
+(7, 'Rua dos Andradas', 'Brasil', '145', 'RS', '12345278', 7),
+(8, 'Avenida Rio Branco', 'Brasil', '178', 'RJ', '87653421', 8),
+(9, 'Rua dos Três Poderes', 'Brasil', '190', 'DF', '12347865', 9),
+(10, 'Avenida Brasil', 'Brasil', '202', 'BA', '87654312', 10);
+
+
+-- -------------
+INSERT INTO `mydb`.`produto` (idproduto, modelo, lucro, outros, nome, descricao, fotos,  marca, tipoUnidade, tamanho, compra_idcompra)
+VALUES
+(1, 'Modelo1', 10.50, 'Outros1', 'Furadeira', 'uma furadeira muito bacana', 'foto1.jpg',  'marca das marcas', 'Unidade', 'média', 1),
+(2, 'Modelo2', 15.75, 'Outros2', 'parafuso', 'minimalista e eficiente', 'foto2.jpg',  'marca das marcas', 'Unidade', 'pequeno', 2),
+(3, 'Modelo3', 20.00, 'Outros3', 'Furadeira master kabum', 'a mais potente das furadeiras', 'foto3.jpg',  'Marca3', 'marca das marcas', 'enorme', 3),
+(4, 'Modelo4', 8.99, 'Outros4', 'martelo do thor', 'um martelo pesado para atividades cotidianas', 'foto4.jpg',  'thor solucoes', 'unidade', 'grande', 4),
+(5, 'Modelo5', 100.00, 'Outros5', 'carrinhot rodas quentes', 'carrinho em miniatúra para colecionadores', 'foto5.jpg',  'rodas quentes', 'unidade', 'pequeno', 5),
+(6, 'Modelo6', 30.25, 'Outros6', 'carrinhot rodas quentes', 'Carrinho com tecnologia sem fio', 'foto6.jpg',  'rodas quentes', 'unidade', 'pequeno', 6),
+(7, 'Modelo7', 45.80, 'Outros7', 'garrafa occap', 'garrafa térmica perfeita ', 'foto7.jpg',  'occap', 'Unidade', '900ml', 7),
+(8, 'Modelo8', 12.60, 'Outros8', 'garrafa occap', 'garrafa térmica incrível ', 'foto8.jpg', 'occap', 'Unidade', '3000ml', 8),
+(9, 'Modelo9', 55.00, 'Outros9', 'livro de culinaria', 'livro com receitas da vovô ', 'foto9.jpg',  'Marca9', 'Unidade', '1200 páginas', 9),
+(10, 'Modelo10', 18.90, 'Outros10', 'racao para cachorro chihuahua', 'ração para o seu mais amado', 'foto10.jpg', 'realeza canina', 'saco', '1.5kg', 10);
+
+
+-- -----------------
+INSERT INTO `mydb`.`entrega` (`identrega`, `dataEnvio`, `previsaoEntrega`, `meioTransporte`, `venda_idvenda`, `nomeQuemRecebeu`) VALUES
+(1, '2024-05-11 10:00:00', '2024-05-15 10:00:00', 'Caminhão', 1, 'João Santos'),
+(2, '2024-05-12 11:00:00', '2024-05-16 11:00:00', 'Moto', 2, 'Maria Fernanda'),
+(3, '2024-05-13 12:00:00', '2024-05-17 12:00:00', 'Avião', 3, 'Ricardo Alves'),
+(4, '2024-05-14 13:00:00', '2024-05-18 13:00:00', 'Navio', 4, 'Patrícia Souza'),
+(5, '2024-05-15 14:00:00', '2024-05-19 14:00:00', 'Trem', 5, 'Gabriela Costa'),
+(6, '2024-05-16 15:00:00', '2024-05-20 15:00:00', 'Caminhão', 6, 'Fernando Lima'),
+(7, '2024-05-17 16:00:00', '2024-05-21 16:00:00', 'Moto', 7, 'Larissa Alves'),
+(8, '2024-05-18 17:00:00', '2024-05-22 17:00:00', 'Avião', 8, 'Daniel Pereira'),
+(9, '2024-05-19 18:00:00', '2024-05-23 18:00:00', 'Navio', 9, 'Juliana Dias'),
+(10, '2024-05-20 19:00:00', '2024-05-24 19:00:00', 'Trem', 10, 'Marcelo Duarte');
+
+
+-- ----------
+INSERT INTO `mydb`.`estoque` (`idestoque`, `quantidadeRecebida`, `numLote`, `localArmazenamento`, `produto_idproduto`) VALUES
+(1, 100, 101.01, 'Armazém A', 1),
+(2, 200, 102.02, 'Armazém B', 2),
+(3, 150, 103.03, 'Armazém C', 3),
+(4, 250, 104.04, 'Armazém D', 4),
+(5, 300, 105.05, 'Armazém E', 5),
+(6, 180, 106.06, 'Armazém F', 6),
+(7, 220, 107.07, 'Armazém G', 7),
+(8, 170, 108.08, 'Armazém H', 8),
+(9, 190, 109.09, 'Armazém I', 9),
+(10, 210, 110.10, 'Armazém J', 10);
+
+
+-- ------
+INSERT INTO `mydb`.`rastreamento` (`idrastreamento`, `localRastreamento`, `entrega_identrega`, `dataRecebimento`, `rastreamentocol`) VALUES
+(1, 'São Paulo', 1, '2024-05-11 10:00:00', 'Recebido'),
+(2, 'Rio de Janeiro', 2, '2024-05-12 11:00:00', 'Recebido'),
+(3, 'Curitiba', 3, '2024-05-13 12:00:00', 'Recebido'),
+(4, 'Belo Horizonte', 4, '2024-05-14 13:00:00', 'Recebido'),
+(5, 'Fortaleza', 5, '2024-05-15 14:00:00', 'Recebido'),
+(6, 'Porto Alegre', 6, '2024-05-16 15:00:00', 'Recebido'),
+(7, 'Salvador', 7, '2024-05-17 16:00:00', 'Recebido'),
+(8, 'Brasília', 8, '2024-05-18 17:00:00', 'Recebido'),
+(9, 'Manaus', 9, '2024-05-19 18:00:00', 'Recebido'),
+(10, 'Recife', 10, '2024-05-20 19:00:00', 'Recebido');
+
+
+-- ----------
+INSERT INTO `mydb`.`locais` (`idlocais`, `local`, `rastreamento_idrastreamento`) VALUES
+(1, 'Centro de Distribuição SP', 1),
+(2, 'Centro de Distribuição RJ', 2),
+(3, 'Centro de Distribuição PR', 3),
+(4, 'Centro de Distribuição MG', 4),
+(5, 'Centro de Distribuição CE', 5),
+(6, 'Centro de Distribuição RS', 6),
+(7, 'Centro de Distribuição BA', 7),
+(8, 'Centro de Distribuição DF', 8),
+(9, 'Centro de Distribuição AM', 9),
+(10, 'Centro de Distribuição PE', 10);
+
+
+-- -------
+INSERT INTO fornecedor (cnpj, nome, telefone)
+VALUES
+(12345678, 'Empresa A', '(11) 1234-5678'),
+(23456789, 'Empresa B', '(22) 2345-6789'),
+(34567890, 'Empresa C', '(33) 3456-7890'),
+(45678901, 'Empresa D', '(44) 4567-8901'),
+(56789012, 'Empresa E', '(55) 5678-9012'),
+(67890123, 'Empresa F', '(66) 6789-0123'),
+(78901234, 'Empresa G', '(77) 7890-1234'),
+(89012345, 'Empresa H', '(88) 8901-2345'),
+(90123451, 'Empresa I', '(99) 9012-3456'),
+(12345675, 'Empresa J', '(00) 1234-5678');
+
+
+-- -------
+INSERT INTO preco (idpreco, valor, dataVigencia, dataFinalVigencia, produto_idproduto)
+VALUES
+(1, 10.99, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 1),
+(2, 20.49, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 2),
+(3, 15.75, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 3),
+(4, 8.99, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 4),
+(5, 30.00, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 5),
+(6, 25.50, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 6),
+(7, 18.75, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 7),
+(8, 12.25, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 8),
+(9, 22.99, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 9),
+(10, 9.50, '2024-05-01 00:00:00', '2024-05-31 23:59:59', 10);
+
+
+-- ------
+INSERT INTO `mydb`.`fornecedor_has_produto` (`fornecedor_cnpj`, `produto_idproduto`) VALUES
+('12345678', 1),
+('23456789', 2),
+('34567890', 3),
+('45678901', 4),
+('56789012', 5),
+('67890123', 6),
+('78901234', 7),
+('89012345', 8),
+('90123451', 9),
+('12345675', 10);
+
+
+
+
+-- ------------
+INSERT INTO venda_has_produto (venda_idvenda, produto_idproduto)
+VALUES
+(1, 1),
+(2, 1),
+(3, 3),
+(4, 4),
+(5, 9),
+(6, 8),
+(7, 7),
+(8, 8),
+(9, 8),
+(10, 10);
+
+
+
+
+
+
+
+
+INSERT INTO `mydb`.`vendedor` (`idvendedor`, `nome`, `metaVendas`) VALUES ('11', 'Chico batmeta', '200000');
+
+
+INSERT INTO `mydb`.`vendedor` (`idvendedor`, `nome`, `metaVendas`) VALUES ('11', 'Chico Moedas', '20000');

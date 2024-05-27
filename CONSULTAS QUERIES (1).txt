@@ -1,0 +1,129 @@
+﻿* QUERY 1:
+Select p.modelo as 'modelo produto',
+        p.nome as 'nome produto',
+        e.quantidadeRecebida as 'quantidade recebida',
+        e.localArmazenamento as 'local armazenamento',
+    (SELECT MIN(compra.dataPrevisaoEntrega)
+    FROM compra
+    WHERE compra.idcompra = p.compra_idcompra
+     ) 'Previsão de Chegada da Compra'
+FROM produto p 
+JOIN estoque e on p.idproduto = e.produto_idproduto;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* QUERY 2:
+
+
+SELECT
+    v.idvendedor AS 'ID do Vendedor',
+    v.nome AS 'Nome do Vendedor',
+    IFNULL(SUM(ve.quantidadeVendida * ve.precoUnitario), 0) AS 'Total de Vendas',
+    v.metaVendas AS 'Meta de Vendas',
+    CASE
+        WHEN IFNULL(SUM(ve.quantidadeVendida * ve.precoUnitario), 0) >= v.metaVendas THEN 'Bateu a Meta'
+        ELSE CONCAT('Faltou R$', FORMAT(v.metaVendas - IFNULL(SUM(ve.quantidadeVendida * ve.precoUnitario), 0), 2))
+    END AS 'Status da Meta'
+FROM
+    vendedor v
+LEFT JOIN
+    venda ve ON v.idvendedor = ve.vendedor_idvendedor
+    AND MONTH(ve.dataVenda) = MONTH(CURRENT_DATE())
+    AND YEAR(ve.dataVenda) = YEAR(CURRENT_DATE())
+GROUP BY
+    v.idvendedor;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* QUERY 3:
+
+
+SELECT 
+    e.identrega,
+    e.dataEnvio,
+    e.previsaoEntrega,
+    e.nomeQuemRecebeu,
+    CASE
+        WHEN e.nomeQuemRecebeu IS NOT NULL THEN 'Entregue'
+        ELSE 'Não Entregue'
+    END AS statusEntrega,
+    r.localRastreamento,
+    r.dataRecebimento
+FROM 
+    entrega e
+JOIN 
+    rastreamento r ON e.identrega = r.entrega_identrega
+JOIN 
+    venda v ON e.venda_idvenda = v.idvenda
+ORDER BY 
+    r.dataRecebimento;
+
+
+
+
+
+
+
+
+
+
+* QUERY 4:
+
+
+SELECT 
+    satisfacao AS "Nota de Satisfação",
+    COUNT(*) AS "Número de Clientes"
+FROM 
+    cliente
+WHERE
+    satisfacao IS NOT NULL
+GROUP BY 
+    satisfacao
+ORDER BY
+    satisfacao;

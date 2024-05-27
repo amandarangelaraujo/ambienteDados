@@ -1,0 +1,249 @@
+﻿CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`vendedor` (
+  `idvendedor` INT NOT NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `metaVendas` INT NULL,
+  PRIMARY KEY (`idvendedor`));
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`cliente` (
+  `idcliente` INT NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `telefone` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `produtosPreferidos` VARCHAR(45) NULL,
+  `satisfacao` INT NULL,
+  PRIMARY KEY (`idcliente`));
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`venda` (
+  `idvenda` INT NOT NULL,
+  `dataVenda` DATETIME NULL,
+  `quantidadeVendida` INT NULL,
+  `precoUnitario` FLOAT NULL,
+  `vendedor_idvendedor` INT NOT NULL,
+  `cliente_idcliente` INT NOT NULL,
+  PRIMARY KEY (`idvenda`));
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`entrega` (
+  `identrega` INT NOT NULL,
+  `dataEnvio` DATETIME NULL,
+  `previsaoEntrega` DATETIME NULL,
+  `meioTransporte` VARCHAR(10) NULL,
+  `venda_idvenda` INT NOT NULL,
+  `nomeQuemRecebeu` VARCHAR(45) NULL,
+  PRIMARY KEY (`identrega`));
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`compra` (
+  `idcompra` INT NOT NULL,
+  `dataCompra` DATETIME NULL,
+  `tipoPagamento` VARCHAR(10) NULL,
+  `dataPrevisaoEntrega` DATETIME NULL,
+  PRIMARY KEY (`idcompra`));
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`rastreamento` (
+  `idrastreamento` INT NOT NULL,
+  `localRastreamento` VARCHAR(45) NULL,
+  `entrega_identrega` INT NOT NULL,
+  `dataRecebimento` DATETIME NULL,
+  `rastreamentocol` VARCHAR(45) NULL,
+  PRIMARY KEY (`idrastreamento`));
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`locais` (
+  `idlocais` INT NOT NULL,
+  `local` VARCHAR(45) NULL,
+  `rastreamento_idrastreamento` INT NOT NULL,
+  PRIMARY KEY (`idlocais`));
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`fornecedor` (
+  `cnpj` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(45) NULL,
+  `telefone` VARCHAR(45) NULL,
+  PRIMARY KEY (`cnpj`));
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
+  `idproduto` INT NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `lucro` FLOAT NULL,
+  `outros` VARCHAR(45) NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `descricao` VARCHAR(45) NOT NULL,
+  `fotos` VARCHAR(45) NULL,
+  `validade` DATETIME NULL,
+  `marca` VARCHAR(45) NOT NULL,
+  `tipoUnidade` VARCHAR(45) NOT NULL,
+  `tamanho` VARCHAR(45) NULL,
+  `compra_idcompra` INT NOT NULL,
+  PRIMARY KEY (`idproduto`));
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`estoque` (
+  `idestoque` INT NOT NULL,
+  `quantidadeRecebida` INT NULL,
+  `numLote` FLOAT NULL,
+  `localArmazenamento` VARCHAR(45) NULL,
+  `produto_idproduto` INT NOT NULL,
+  PRIMARY KEY (`idestoque`));
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`endereco` (
+  `idendereco` INT NOT NULL,
+  `logradouro` VARCHAR(45) NOT NULL,
+  `pais` VARCHAR(45) NOT NULL,
+  `numero` VARCHAR(7) NOT NULL,
+  `estadol` VARCHAR(45) NOT NULL,
+  `cep` VARCHAR(8) NULL,
+  `cliente_idcliente` INT NOT NULL,
+  PRIMARY KEY (`idendereco`));
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`preco` (
+  `idpreco` INT NOT NULL,
+  `valor` FLOAT NULL,
+  `dataVigencia` DATETIME NULL,
+  `dataFinalVigencia` DATETIME NULL,
+  `produto_idproduto` INT NOT NULL,
+  PRIMARY KEY (`idpreco`));
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`venda_has_produto` (
+  `venda_idvenda` INT NOT NULL,
+  `produto_idproduto` INT NOT NULL,
+  PRIMARY KEY (`venda_idvenda`, `produto_idproduto`));
+
+
+
+
+CREATE TABLE IF NOT EXISTS `mydb`.`fornecedor_has_produto` (
+  `fornecedor_cnpj` VARCHAR(45) NOT NULL,
+  `produto_idproduto` INT NOT NULL,
+  PRIMARY KEY (`fornecedor_cnpj`, `produto_idproduto`));
+
+
+
+
+ALTER TABLE venda
+ADD constraint FK_VENDA_VENDEDORr
+foreign key (vendedor_idvendedor)
+references vendedor (idvendedor);
+
+
+ALTER TABLE venda
+ADD constraint FK_VENDA_CLIENTE
+foreign key (cliente_idcliente) 
+references cliente (idcliente);
+
+
+ALTER TABLE entrega
+ADD constraint FK_ENTREGA_VENDA
+foreign key (venda_idvenda)
+references venda (idvenda);
+
+
+ALTER TABLE rastreamento
+ADD constraint FK_rastreamento_entrega
+foreign key (entrega_identrega)
+references entrega (identrega);
+
+
+ALTER TABLE locais
+ADD constraint FK_locais_rastreamento
+foreign key (rastreamento_idrastreamento)
+references rastreamento (idrastreamento);
+
+
+ALTER TABLE produto
+ADD constraint FK_produto_compra
+foreign key (compra_idcompra)
+references compra (idcompra);
+
+
+ALTER TABLE estoque
+ADD constraint FK_estoque_produto
+foreign key (produto_idproduto)
+references produto (idproduto);
+
+
+ALTER TABLE endereco
+ADD constraint FK_endereco_cliente
+foreign key (cliente_idcliente)
+references cliente (idcliente);
+
+
+ALTER TABLE preco
+ADD constraint FK_preco_produto
+foreign key (produto_idproduto)
+references produto (idproduto);
+
+
+ALTER TABLE venda_has_produto
+ADD constraint FK_venda_has_produto_produto
+foreign key (produto_idproduto)
+references produto (idproduto);
+
+
+ALTER TABLE venda_has_produto
+ADD constraint FK_venda_has_produto_venda
+foreign key (venda_idvenda)
+references venda (idvenda);
+
+
+ALTER TABLE fornecedor_has_produto
+ADD constraint FK_fornecedor_has_produto_produto
+foreign key (produto_idproduto)
+references produto (idproduto);
+
+
+ALTER TABLE fornecedor_has_produto
+ADD constraint FK_fornecedor_has_produto_fornecedor
+foreign key (fornecedor_cnpj)
+references fornecedor (cnpj);
